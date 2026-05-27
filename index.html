@@ -47,192 +47,119 @@
       z-index: 0;
     }
 
-    /* ── HEADER ── */
+    /* ── TOP HERO REDESIGN ── */
     header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1.2rem clamp(1.2rem, 4vw, 3rem);
+      position: relative;
+      z-index: 20;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: clamp(2.4rem, 5vw, 4.8rem) clamp(1.2rem, 4vw, 3rem) 0;
+      color: #1e3a5f;
       background: transparent;
-      color: #fff;
-      backdrop-filter: blur(0);
-      border-bottom: 1px solid transparent;
-      transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, padding 0.35s ease;
-    }
-
-    header.scrolled {
-      padding-top: 0.9rem;
-      padding-bottom: 0.9rem;
-      background: rgba(255,255,255,0.94);
-      color: var(--text);
-      backdrop-filter: blur(14px);
-      border-bottom-color: rgba(0,0,0,0.08);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 0;
+      display: block;
     }
 
     .logo {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 1.1rem;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      white-space: nowrap;
-    }
-
-    header.scrolled .logo { color: #151515; }
-
-    header nav {
-      display: flex;
-      align-items: center;
-      gap: clamp(0.8rem, 2vw, 2rem);
-    }
-
-    header nav a {
-      color: rgba(255,255,255,0.78);
-      text-decoration: none;
-      font-size: 0.85rem;
-      letter-spacing: 0.05em;
-      transition: color 0.2s;
-      white-space: nowrap;
-    }
-    header nav a:hover { color: var(--accent); }
-    header.scrolled nav a { color: #333; }
-    header.scrolled nav a:hover { color: #6a8000; }
-
-    /* ── HERO ── */
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 8rem 2rem 4rem;
-      position: relative;
-      overflow: hidden;
-      color: #fff;
-      background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1600&auto=format&fit=crop');
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-    }
-
-    .hero::after {
-      content: '';
-      position: absolute;
-      inset: auto 0 0;
-      height: 32vh;
-      background: linear-gradient(transparent, rgba(0,0,0,0.64));
-      pointer-events: none;
-    }
-
-    .hero-bg-circle {
-      position: absolute;
-      width: min(72vw, 820px); height: min(72vw, 820px);
-      background: radial-gradient(circle, rgba(212,255,0,0.12) 0%, transparent 70%);
-      border-radius: 50%;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      max-width: 980px;
-      text-align: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-tag {
-      display: inline-block;
-      font-family: 'Syne', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--accent);
-      border: 1px solid rgba(212,255,0,0.75);
-      background: rgba(0,0,0,0.18);
-      padding: 0.3rem 0.8rem;
-      border-radius: 999px;
-      margin-bottom: 2rem;
-      animation: fadeUp 0.6s ease both;
-    }
-
-    .hero h1 {
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: clamp(2.2rem, 5.5vw, 5.4rem);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: clamp(2.3rem, 6vw, 4.2rem);
+      font-weight: 700;
       line-height: 1.12;
-      letter-spacing: -0.02em;
-      margin-bottom: 1.1rem;
-      animation: fadeUp 0.7s 0.1s ease both;
-      text-shadow: 0 10px 40px rgba(0,0,0,0.38);
-      white-space: nowrap;
+      color: #1e3a5f;
+      letter-spacing: 0.02em;
     }
 
-    .hero h1 em {
-      font-style: normal;
-      color: var(--accent);
+    .tagline {
+      margin-top: 0.5rem;
+      font-size: clamp(0.95rem, 2vw, 1.3rem);
+      color: rgba(30,58,95,0.82);
+      font-weight: 400;
     }
 
-    .hero-en {
-      font-family: 'Syne', sans-serif;
-      font-size: clamp(0.82rem, 1.4vw, 1rem);
-      font-weight: 700;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.78);
-      margin-bottom: 1.4rem;
-      animation: fadeUp 0.7s 0.16s ease both;
-    }
+    header nav { display: none; }
 
-    .hero-sub {
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      color: rgba(255,255,255,0.78);
-      max-width: 640px;
-      margin: 0 auto 3rem;
-      animation: fadeUp 0.7s 0.2s ease both;
-    }
-
-    .hero-cta {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      animation: fadeUp 0.7s 0.3s ease both;
-    }
-
-    .btn {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 0.9rem;
-      letter-spacing: 0.08em;
-      text-decoration: none;
-      padding: 0.9rem 2.2rem;
-      border-radius: 999px;
-      transition: all 0.2s;
-      display: inline-block;
-    }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #000;
-    }
-    .btn-primary:hover {
+    .hero {
+      min-height: auto;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: clamp(1.6rem, 3.5vw, 2.8rem) clamp(1.2rem, 4vw, 3rem) clamp(4rem, 7vw, 6rem);
+      display: grid;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: clamp(1.8rem, 4vw, 3.3rem);
+      align-items: center;
       background: #fff;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(212,255,0,0.25);
+      color: #1e3a5f;
+      position: relative;
     }
 
-    .btn-ghost {
-      border: 1px solid currentColor;
-      color: inherit;
-      background: rgba(255,255,255,0.04);
+    .hero-bg-circle, .hero::after { display: none; }
+    .hero-inner { max-width: 100%; text-align: left; }
+
+    .mock-stack { position: relative; min-height: 570px; }
+
+    .mock-card {
+      position: absolute;
+      border-radius: 18px;
+      background: #fff;
+      border: 1px solid rgba(30,58,95,0.16);
+      box-shadow: 0 20px 45px rgba(18,35,58,0.08);
     }
-    .btn-ghost:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-2px);
+
+    .browser-bar { top: 4px; left: 24px; width: 85%; padding: 12px 14px; }
+    .dots { display: flex; gap: 8px; margin-bottom: 10px; }
+    .dots span { width: 8px; height: 8px; border-radius: 50%; background: rgba(30,58,95,0.22); }
+    .search-pill { border: 1px solid rgba(30,58,95,0.16); border-radius: 999px; padding: 8px 12px; color: rgba(30,58,95,0.64); font-size: 0.88rem; }
+
+    .tabs { top: 124px; left: 0; width: 79%; padding: 16px; transform: rotate(-4deg); }
+    .tab-row { display: flex; gap: 8px; margin-bottom: 14px; }
+    .tab { font-size: 0.75rem; padding: 6px 10px; border-radius: 9px; background: rgba(30,58,95,0.06); color: rgba(30,58,95,0.78); }
+    .table-mock { border: 1px solid rgba(30,58,95,0.12); border-radius: 12px; overflow: hidden; }
+    .table-mock div { display: grid; grid-template-columns: 1.3fr repeat(3,1fr); border-top: 1px solid rgba(30,58,95,0.1); }
+    .table-mock div:first-child { border-top: 0; background: rgba(30,58,95,0.04); font-weight: 500; }
+    .table-mock span { padding: 8px 10px; font-size: 0.8rem; color: rgba(30,58,95,0.86); }
+
+    .saved { top: 364px; left: 16px; width: 72%; padding: 14px; transform: rotate(-2deg); }
+    .saved h4 { font-size: 0.83rem; margin-bottom: 8px; color: rgba(30,58,95,0.9); }
+    .saved li { list-style: none; border-top: 1px solid rgba(30,58,95,0.11); padding: 8px 0; font-size: 0.82rem; color: rgba(30,58,95,0.75); }
+
+    .sticky {
+      position: absolute;
+      right: 30px;
+      bottom: 26px;
+      width: 148px;
+      background: #fff7bc;
+      border: 1px solid rgba(184,155,52,0.26);
+      border-radius: 10px;
+      padding: 12px;
+      transform: rotate(5deg);
+      color: rgba(51,51,30,0.8);
+      box-shadow: 0 14px 24px rgba(58,48,16,0.14);
+      font-size: 0.92rem;
+      line-height: 1.55;
+    }
+
+    .form-panel {
+      border: 1px solid rgba(30,58,95,0.16);
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: 0 26px 50px rgba(16,36,62,0.1);
+      padding: clamp(1.4rem, 2.8vw, 2.2rem);
+    }
+    .form-list { display: grid; gap: 12px; margin-bottom: 16px; }
+    .field {
+      border: 1px solid rgba(30,58,95,0.18);
+      border-radius: 14px;
+      padding: 14px 16px;
+      color: rgba(30,58,95,0.84);
+      font-size: 0.95rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .field span:last-child { color: rgba(30,58,95,0.45); font-size: 0.85rem; }
+    .hero-btn {
+      width: 100%; border: 0; border-radius: 14px; padding: 15px 16px;
+      background: #1e3a5f; color: #fff; font-size: 1.15rem; font-weight: 700;
     }
 
     /* ── SECTION BASE ── */
@@ -767,8 +694,10 @@
     }
 
     @media (max-width: 700px) {
-      .hero { background-attachment: scroll; }
-      .hero h1 { white-space: normal; font-size: clamp(1.8rem, 8vw, 2.8rem); }
+      .mock-stack { display: none; }
+      .hero { grid-template-columns: 1fr; padding-top: 1rem; }
+      header { padding-top: 2rem; }
+      .logo { font-size: clamp(2rem, 11vw, 2.8rem); }
       section { padding-left: 1.2rem; padding-right: 1.2rem; }
       .flow-item { grid-template-columns: 52px 1fr; gap: 1rem; }
       .flow-num { font-size: 2rem; }
@@ -781,28 +710,39 @@
 
 <!-- HEADER -->
 <header id="siteHeader">
-  <div class="logo">初速制作室</div>
-  <nav>
-    <a href="#services">サービス</a>
-    <a href="#strengths">得意なこと</a>
-    <a href="#works">実績</a>
-    <a href="#flow">流れ</a>
-    <a href="#pricing">料金</a>
-    <a href="#contact">依頼する</a>
-  </nav>
+  <div class="logo">シラベスギー</div>
+  <p class="tagline">調べすぎて、決められていませんか？</p>
 </header>
 
 <!-- HERO -->
 <div class="hero">
-  <div class="hero-bg-circle"></div>
+  <div class="mock-stack">
+    <div class="mock-card browser-bar"><div class="dots"><span></span><span></span><span></span></div><div class="search-pill">おすすめ ノートパソコン</div></div>
+    <div class="mock-card tabs">
+      <div class="tab-row"><span class="tab">比較</span><span class="tab">レビュー</span><span class="tab">ランキング</span></div>
+      <div class="table-mock">
+        <div><span></span><span>A社</span><span>B社</span><span>C社</span></div>
+        <div><span>価格</span><span>◯</span><span>△</span><span>◯</span></div>
+        <div><span>性能</span><span>△</span><span>◯</span><span>◯</span></div>
+        <div><span>重さ</span><span>◯</span><span>△</span><span>◯</span></div>
+      </div>
+    </div>
+    <div class="mock-card saved">
+      <h4>保存した記事</h4>
+      <ul><li>後悔しない選び方のポイント</li><li>ユーザーの口コミまとめ</li><li>気になることリスト</li></ul>
+    </div>
+    <div class="sticky">もっと調べた方がいい？</div>
+  </div>
+
   <div class="hero-inner">
-    <div class="hero-tag">AI-Powered Development</div>
-    <h1>SNSで売るあなたに、<br><em>ちゃんとしたWebを。</em></h1>
-    <p class="hero-en">Fast. Clean. AI-Powered.</p>
-    <p class="hero-sub">LP・Webアプリ・業務ツールを最短1日で形に。個人事業主・フリーランスの「作りたい」に、AIを武器に一人で応えます。</p>
-    <div class="hero-cta">
-      <a href="#contact" class="btn btn-primary">制作を依頼する</a>
-      <a href="#works" class="btn btn-ghost">実績を見る</a>
+    <div class="form-panel">
+      <div class="form-list">
+        <div class="field"><span>テーマ</span><span>例：ノートパソコンの購入</span></div>
+        <div class="field"><span>調べた時間</span><span>例：10時間くらい</span></div>
+        <div class="field"><span>比較候補</span><span>例：A社 / B社 / C社</span></div>
+        <div class="field"><span>まだ不安な理由</span><span>例：本当に後悔しないか不安</span></div>
+      </div>
+      <button class="hero-btn">診断をはじめる</button>
     </div>
   </div>
 </div>
