@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>初速制作室 | SNSで売るあなたに、ちゃんとしたWebを。</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <style>
+    :root {
+      --bg: #f3f4f1;
+      --dark: #2a2a2a;
+      --dark-deep: #1a1a1a;
+      --surface: #ffffff;
+      --surface-dark: #111111;
+      --surface2: #181818;
+      --accent: #d4ff00;
+      --accent2: #ff6b35;
+      --text: #151515;
+      --text-light: #f7f7f2;
+      --text-muted: #666;
+      --text-muted-dark: rgba(255,255,255,0.68);
+      --border: rgba(0,0,0,0.12);
+      --border-dark: rgba(255,255,255,0.14);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem clamp(1.2rem, 4vw, 3rem);
+      background: transparent;
+      color: #fff;
+      backdrop-filter: blur(0);
+      border-bottom: 1px solid transparent;
+      transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, padding 0.35s ease;
+    }
+
+    header.scrolled {
+      padding-top: 0.9rem;
+      padding-bottom: 0.9rem;
+      background: rgba(255,255,255,0.94);
+      color: var(--text);
+      backdrop-filter: blur(14px);
+      border-bottom-color: rgba(0,0,0,0.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    header.scrolled .logo { color: #151515; }
+
+    header nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(0.8rem, 2vw, 2rem);
+    }
+
+    header nav a {
+      color: rgba(255,255,255,0.78);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+    header nav a:hover { color: var(--accent); }
+    header.scrolled nav a { color: #333; }
+    header.scrolled nav a:hover { color: #6a8000; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1600&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: auto 0 0;
+      height: 32vh;
+      background: linear-gradient(transparent, rgba(0,0,0,0.64));
+      pointer-events: none;
+    }
+
+    .hero-bg-circle {
+      position: absolute;
+      width: min(72vw, 820px); height: min(72vw, 820px);
+      background: radial-gradient(circle, rgba(212,255,0,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 980px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(212,255,0,0.75);
+      background: rgba(0,0,0,0.18);
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      margin-bottom: 2rem;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.2rem, 5.5vw, 5.4rem);
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.1rem;
+      animation: fadeUp 0.7s 0.1s ease both;
+      text-shadow: 0 10px 40px rgba(0,0,0,0.38);
+      white-space: nowrap;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero-en {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(0.82rem, 1.4vw, 1rem);
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+      margin-bottom: 1.4rem;
+      animation: fadeUp 0.7s 0.16s ease both;
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(255,255,255,0.78);
+      max-width: 640px;
+      margin: 0 auto 3rem;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeUp 0.7s 0.3s ease both;
+    }
+
+    .btn {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      padding: 0.9rem 2.2rem;
+      border-radius: 999px;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+    }
+    .btn-primary:hover {
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(212,255,0,0.25);
+    }
+
+    .btn-ghost {
+      border: 1px solid currentColor;
+      color: inherit;
+      background: rgba(255,255,255,0.04);
+    }
+    .btn-ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* ── SECTION BASE ── */
+    section {
+      padding: clamp(4.5rem, 9vw, 8rem) 2rem;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    section > * {
+      max-width: 1080px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-light {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .section-dark {
+      background: var(--dark);
+      color: var(--text-light);
+    }
+
+    .section-dark::before,
+    .contact-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 82% 12%, rgba(212,255,0,0.12), transparent 32%);
+      pointer-events: none;
+    }
+
+    .section-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    h2 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 5vw, 4.4rem);
+      line-height: 1.04;
+      letter-spacing: -0.04em;
+      margin-bottom: 3rem;
+    }
+
+    .heading-arrow {
+      color: var(--accent);
+      display: inline-block;
+      transform: translateY(-0.04em);
+    }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .service-card,
+    .strength-card,
+    .faq-item {
+      background: rgba(255,255,255,0.86);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+    }
+
+    .section-dark .service-card,
+    .section-dark .strength-card,
+    .section-dark .faq-item {
+      background: rgba(17,17,17,0.72);
+      border-color: var(--border-dark);
+      box-shadow: none;
+    }
+
+    .service-card {
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .service-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+
+    .service-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .service-card h3,
+    .strength-card h3,
+    .work-card h3,
+    .flow-item h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+    }
+
+    .service-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .service-card p,
+    .strength-card p,
+    .flow-item p,
+    .work-card p,
+    .price-table td,
+    .price-note,
+    .faq-a-inner,
+    .cta-section p {
+      color: var(--text-muted);
+    }
+
+    .section-dark .service-card p,
+    .section-dark .strength-card p,
+    .section-dark .flow-item p,
+    .section-dark .work-card p,
+    .section-dark .price-table td,
+    .section-dark .price-note,
+    .section-dark .faq-a-inner,
+    .contact-section .cta-section p {
+      color: var(--text-muted-dark);
+    }
+
+    .service-card p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .service-price {
+      margin-top: 1.5rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.3rem;
+      color: var(--accent);
+    }
+    .service-price span {
+      font-size: 0.75rem;
+      color: inherit;
+      opacity: 0.72;
+      font-weight: 400;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    /* ── PORTFOLIO ── */
+    #works > .swiper { max-width: 1120px; }
+
+    .works-slider {
+      padding: 0.2rem 0 3.4rem;
+      overflow: visible;
+    }
+
+    .work-card {
+      min-height: 100%;
+      background: rgba(17,17,17,0.78);
+      border: 1px solid var(--border-dark);
+      border-radius: 24px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+    }
+    .work-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+
+    .work-thumb {
+      width: 100%;
+      height: clamp(180px, 24vw, 270px);
+      background: linear-gradient(135deg, rgba(212,255,0,0.16), rgba(255,255,255,0.04));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      border-bottom: 1px solid var(--border-dark);
+    }
+
+    .work-body {
+      padding: clamp(1.4rem, 3vw, 2rem);
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .work-tag {
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .work-card h3 {
+      font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+      margin-bottom: 0.6rem;
+    }
+
+    .work-card p {
+      font-size: 0.9rem;
+      flex: 1;
+    }
+
+    .work-actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+
+    .work-link {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(212,255,0,0.3);
+      padding-bottom: 1px;
+      transition: border-color 0.2s;
+    }
+    .work-link:hover { border-color: var(--accent); }
+
+    .swiper-pagination-fraction {
+      bottom: 0;
+      color: rgba(255,255,255,0.86);
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+    }
+
+    .swiper-pagination-current { color: var(--accent); }
+
+    /* ── STRENGTHS ── */
+    .strengths-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .strength-card {
+      padding: 1.8rem;
+      display: flex;
+      gap: 1.2rem;
+      align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .strength-card:hover { border-color: var(--accent); }
+
+    .strength-icon {
+      font-size: 1.8rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .strength-card h3 {
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .strength-card p {
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
+
+    /* ── FLOW ── */
+    .flow-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .flow-item {
+      display: grid;
+      grid-template-columns: 70px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border-dark);
+      position: relative;
+    }
+    .flow-item:last-child { border-bottom: none; }
+
+    .flow-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 2.5rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .flow-item h3 {
+      font-size: 1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .flow-item p { font-size: 0.88rem; }
+
+    /* ── PRICE TABLE ── */
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      background: rgba(255,255,255,0.7);
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.06);
+    }
+
+    .price-table th {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      text-align: left;
+      padding: 0.9rem 1rem;
+      background: #151515;
+      color: #fff;
+      border-bottom: 2px solid var(--accent);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+    }
+
+    .price-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    .price-table tr:last-child td { border-bottom: none; }
+
+    .price-table td:first-child {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .price-table td strong {
+      font-family: 'Syne', sans-serif;
+      color: #88a500;
+      font-size: 1.05rem;
+    }
+
+    .price-note {
+      margin-top: 1.5rem;
+      font-size: 0.82rem;
+      line-height: 1.8;
+    }
+    .price-note span { color: var(--accent2); }
+
+    /* ── FAQ ── */
+    .faq-list { display: flex; flex-direction: column; gap: 1px; }
+
+    .faq-item {
+      overflow: hidden;
+      margin-bottom: 0.75rem;
+    }
+
+    .faq-q {
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-align: left;
+      padding: 1.2rem 1.5rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .faq-q:hover { color: #6a8000; }
+    .section-dark .faq-q { color: var(--text-light); }
+    .section-dark .faq-q:hover { color: var(--accent); }
+
+    .faq-icon {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.2rem;
+      color: #88a500;
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.2s;
+    }
+
+    .faq-a-inner {
+      padding: 0 1.5rem 1.2rem;
+      font-size: 0.88rem;
+      line-height: 1.8;
+    }
+
+    .faq-item.open .faq-a { max-height: 400px; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    /* ── CTA SECTION ── */
+    .contact-section {
+      background: var(--dark-deep);
+      color: var(--text-light);
+      padding-top: 5rem;
+      padding-bottom: 6rem;
+    }
+
+    .contact-bg-text {
+      position: absolute;
+      top: clamp(1rem, 4vw, 2rem);
+      left: 50%;
+      transform: translateX(-50%);
+      width: max-content;
+      max-width: 100vw;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(5rem, 18vw, 16rem);
+      line-height: 1;
+      letter-spacing: -0.08em;
+      color: rgba(255,255,255,0.045);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .cta-section {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-dark);
+      border-radius: 28px;
+      padding: 4rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 100%, rgba(212,255,0,0.11) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .cta-section h2 { margin-bottom: 1rem; }
+
+    .cta-section p {
+      margin-bottom: 2.5rem;
+      font-size: 0.95rem;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark-deep);
+      border-top: 1px solid var(--border-dark);
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted-dark);
+    }
+
+    footer .logo { font-size: 0.9rem; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .divider { display: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      header {
+        align-items: flex-start;
+        gap: 0.8rem;
+        flex-direction: column;
+      }
+
+      header nav {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 0.1rem;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .hero { background-attachment: scroll; }
+      .hero h1 { white-space: normal; font-size: clamp(1.8rem, 8vw, 2.8rem); }
+      section { padding-left: 1.2rem; padding-right: 1.2rem; }
+      .flow-item { grid-template-columns: 52px 1fr; gap: 1rem; }
+      .flow-num { font-size: 2rem; }
+      .price-table { display: block; overflow-x: auto; white-space: nowrap; }
+      .cta-section { padding: 2.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="siteHeader">
+  <div class="logo">シラベスギー</div>
+  <nav>
+    <a href="#services">サービス</a>
+    <a href="#strengths">得意なこと</a>
+    <a href="#works">実績</a>
+    <a href="#flow">流れ</a>
+    <a href="#pricing">料金</a>
+    <a href="#contact">依頼する</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg-circle"></div>
+  <div class="hero-inner">
+    <div class="hero-tag">AI-Powered Development</div>
+    <h1>SNSで売るあなたに、<br><em>ちゃんとしたWebを。</em></h1>
+    <p class="hero-en">Fast. Clean. AI-Powered.</p>
+    <p class="hero-sub">調べすぎて、決められていませんか？</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn btn-primary">制作を依頼する</a>
+      <a href="#works" class="btn btn-ghost">実績を見る</a>
+    </div>
+  </div>
+</div>
+
+<hr class="divider" />
+
+<!-- SERVICES -->
+<section id="services" class="section-light">
+  <p class="section-label reveal">What I Do</p>
+  <h2 class="reveal">できること <span class="heading-arrow">→</span></h2>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">📱</div>
+      <h3>Webアプリ制作</h3>
+      <p>ToDoアプリ・業務ツール・社内ダッシュボードなど。要件ヒアリングから設計・実装・デプロイまで一括対応。</p>
+      <div class="service-price">¥50,000〜 <span>/ 1案件</span></div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🚀</div>
+      <h3>LP・サービスサイト制作</h3>
+      <p>サービス紹介・集客・採用など目的に合わせたLPを制作。レスポンシブ対応・SEO基礎設定込み。</p>
+      <div class="service-price">¥30,000〜 <span>/ 1ページ</span></div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">⚙️</div>
+      <h3>業務ツール・自動化</h3>
+      <p>スプレッドシート連携・Slack通知・PDF生成など「今ある作業をラクにしたい」を実現するツール開発。</p>
+      <div class="service-price">¥30,000〜 <span>/ 1件</span></div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">🤖</div>
+      <h3>AI機能の組み込み</h3>
+      <p>既存サービスへのChatGPT・Claude連携、文章生成・要約・分類など、AI APIを使った機能追加。</p>
+      <div class="service-price">¥40,000〜 <span>/ 1機能</span></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- STRENGTHS -->
+<section id="strengths" class="section-dark">
+  <p class="section-label reveal">Strengths</p>
+  <h2 class="reveal">得意なこと <span class="heading-arrow">→</span></h2>
+  <div class="strengths-grid">
+    <div class="strength-card reveal">
+      <div class="strength-icon">⚡</div>
+      <div>
+        <h3>最短1日でリリースまで持っていく</h3>
+        <p>アイデアが固まったその日にデプロイまで完走。「まず動くものを見たい」に応えます。制作実績の「いっちょうあがり」はコンセプト設計からVercel公開まで1日で完結。</p>
+      </div>
+    </div>
+    <div class="strength-card reveal">
+      <div class="strength-icon">🤝</div>
+      <div>
+        <h3>個人事業主・フリーランスの事情がわかる</h3>
+        <p>「予算は限られてる」「技術的なことは任せたい」「でも完成イメージは伝えにくい」——その感覚を持って制作します。一人で動いているからこそ、一人の相談に向き合えます。</p>
+      </div>
+    </div>
+    <div class="strength-card reveal">
+      <div class="strength-icon">🔗</div>
+      <div>
+        <h3>企画・設計・実装・公開まで一人で完結</h3>
+        <p>「ディレクターと開発者で話が噛み合わない」が起きません。あなたの言葉を直接コードに変換するので、認識のズレが最小限です。</p>
+      </div>
+    </div>
+    <div class="strength-card reveal">
+      <div class="strength-icon">🤖</div>
+      <div>
+        <h3>AIを道具として使いこなす</h3>
+        <p>Claude・ChatGPT等のAPIを実務で使い続けています。「AIを組み込みたいけど何から始めれば」という相談も歓迎。機能追加から設計まで対応します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- WORKS -->
+<section id="works" class="section-dark">
+  <p class="section-label reveal">Portfolio</p>
+  <h2 class="reveal">制作実績 <span class="heading-arrow">→</span></h2>
+  <div class="swiper works-slider reveal">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="work-card">
+          <div class="work-thumb">🗒️</div>
+          <div class="work-body">
+            <div class="work-tag">Webアプリ</div>
+            <h3>関西弁ToDoアプリ</h3>
+            <p>タスク管理をおもしろく。関西弁で喋るToDoアプリ。デザイン〜実装〜公開まで1日で完結。</p>
+            <div class="work-actions">
+              <a href="https://kansai-todo.vercel.app/" class="work-link" target="_blank">→ アプリを見る</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="work-card">
+          <div class="work-thumb">✍️</div>
+          <div class="work-body">
+            <div class="work-tag">Webアプリ</div>
+            <h3>いっちょうあがり</h3>
+            <p>ネタを1つ入力するだけでX・note・Instagram用の投稿文を口調付きで一括生成するアプリ。Claude API + Stripe決済（¥980/月）をHTML/JS単体で実装。コンセプト設計からデプロイまで1日で完走。</p>
+            <div class="work-actions">
+              <a href="https://icchoagari.vercel.app" class="work-link" target="_blank">→ アプリを見る</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="work-card">
+          <div class="work-thumb">🤖</div>
+          <div class="work-body">
+            <div class="work-tag">LINEボット</div>
+            <h3>商談まえだ</h3>
+            <p>企業調査AIアシスタント。LINE上で動き、無料3回→月額980円のStripe課金。1日で設計〜本番稼働まで完走。</p>
+            <div class="work-actions">
+              <a href="https://line.me/R/ti/p/@572qmolf" class="work-link" target="_blank">→ LINEで見る</a>
+              <a href="https://github.com/tanaka264839-cmyk/shodan-maeda" class="work-link" target="_blank">→ GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="work-card">
+          <div class="work-thumb">🛠️</div>
+          <div class="work-body">
+            <div class="work-tag">Coming Soon</div>
+            <h3>Coming Soon</h3>
+            <p>あなたのプロジェクトが次の実績になるかもしれません。</p>
+            <div class="work-actions">
+              <a href="#contact" class="work-link">→ 相談してみる</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="swiper-pagination"></div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- FLOW -->
+<section id="flow" class="section-dark">
+  <p class="section-label reveal">Process</p>
+  <h2 class="reveal">流れ <span class="heading-arrow">→</span></h2>
+  <div class="flow-list">
+    <div class="flow-item reveal">
+      <div class="flow-num">01</div>
+      <div>
+        <h3>ヒアリング（無料・30分）</h3>
+        <p>作りたいもの・目的・納期・予算をお聞きします。まずはざっくりご相談ください。</p>
+      </div>
+    </div>
+    <div class="flow-item reveal">
+      <div class="flow-num">02</div>
+      <div>
+        <h3>お見積もり・合意</h3>
+        <p>内容をもとに金額・納期・対応範囲を提示します。納得いただけたらご依頼確定です。</p>
+      </div>
+    </div>
+    <div class="flow-item reveal">
+      <div class="flow-num">03</div>
+      <div>
+        <h3>制作・中間共有</h3>
+        <p>着手後、途中経過を随時共有。フィードバックを反映しながら進めます。</p>
+      </div>
+    </div>
+    <div class="flow-item reveal">
+      <div class="flow-num">04</div>
+      <div>
+        <h3>納品・修正対応</h3>
+        <p>最終確認後、ファイルまたはデプロイ済みURLで納品。軽微な修正は納品後1週間以内無料。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- PRICING -->
+<section id="pricing" class="section-light">
+  <p class="section-label reveal">Pricing</p>
+  <h2 class="reveal">料金 <span class="heading-arrow">→</span></h2>
+  <table class="price-table reveal">
+    <thead>
+      <tr>
+        <th>制作物</th>
+        <th>目安金額</th>
+        <th>目安納期</th>
+        <th>含まれるもの</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>LP（1ページ）</td>
+        <td><strong>¥30,000〜</strong></td>
+        <td>3〜5日</td>
+        <td>デザイン・コーディング・レスポンシブ対応</td>
+      </tr>
+      <tr>
+        <td>シンプルWebアプリ</td>
+        <td><strong>¥50,000〜</strong></td>
+        <td>5〜10日</td>
+        <td>要件定義・設計・実装・デプロイ</td>
+      </tr>
+      <tr>
+        <td>業務ツール・自動化</td>
+        <td><strong>¥30,000〜</strong></td>
+        <td>3〜7日</td>
+        <td>要件ヒアリング・実装・使い方説明</td>
+      </tr>
+      <tr>
+        <td>AI機能追加</td>
+        <td><strong>¥40,000〜</strong></td>
+        <td>5〜10日</td>
+        <td>API連携・プロンプト設計・実装</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="price-note">
+    ※ 金額は参考目安です。要件により変動します。まずはお気軽にご相談ください。<br>
+    ※ お支払いはクレジットカード・銀行振込に対応しています。<br>
+    <span>※ ご依頼確定後、着手前に全額前払い（または50%前払い）をお願いしています。</span>
+  </p>
+</section>
+
+<hr class="divider" />
+
+<!-- FAQ -->
+<section id="faq" class="section-dark">
+  <p class="section-label reveal">FAQ</p>
+  <h2 class="reveal">よくある質問 <span class="heading-arrow">→</span></h2>
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>技術的なことがわからなくても依頼できますか？</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">はい、まったく問題ありません。「こういうものが欲しい」というイメージだけ教えてください。技術的な要件整理からお手伝いします。</div></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>修正はどこまで対応してもらえますか？</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">納品後1週間以内の軽微な修正（テキスト変更・色調整など）は無料で対応します。仕様変更や機能追加については別途お見積もりします。</div></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>急ぎの依頼にも対応できますか？</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">内容によっては最短1日での対応も可能です。まずご相談ください。スケジュールが空いていれば特急対応します（別途特急料金はいただきません）。</div></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>どんな技術で作りますか？</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">HTML/CSS/JavaScript・React・Next.jsを中心に、要件に合わせて選定します。バックエンドはFirebase・Supabase・Node.jsなど。AIはOpenAI・Anthropic APIに対応しています。</div></div>
+    </div>
+    <div class="faq-item reveal">
+      <button class="faq-q" onclick="toggleFaq(this)">
+        <span>完成後のサポートはありますか？</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-a"><div class="faq-a-inner">納品後1週間の無償サポートに加え、継続的な保守・改善についても対応しています。まずはご相談ください。</div></div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider" />
+
+<!-- CTA -->
+<section id="contact" class="contact-section">
+  <div class="contact-bg-text">Contact</div>
+  <div class="cta-section reveal">
+    <p class="section-label">Contact</p>
+    <h2>まずは気軽に相談してください <span class="heading-arrow">→</span></h2>
+    <p>「こんなの作れる？」レベルのご相談から歓迎です。<br>ヒアリング・お見積もりは無料です。</p>
+    <div class="cta-btns">
+      <a href="https://coconala.com/users/3389958" target="_blank" class="btn btn-primary">ココナラで相談する</a>
+      <a href="https://x.com/EJ6aNsgkA127548" target="_blank" class="btn btn-ghost">Xでメッセージを送る</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">初速制作室</div>
+  <span>LP・Webアプリ・業務ツール | AI制作</span>
+  <span>© 2026</span>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  // Header color change
+  const siteHeader = document.getElementById('siteHeader');
+  const updateHeader = () => {
+    siteHeader.classList.toggle('scrolled', window.scrollY > 50);
+  };
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
+
+  // Portfolio slider
+  new Swiper('.works-slider', {
+    loop: true,
+    speed: 850,
+    spaceBetween: 24,
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      type: 'fraction',
+      formatFractionCurrent: (number) => String(number).padStart(2, '0'),
+      formatFractionTotal: (number) => String(number).padStart(2, '0'),
+      renderFraction: (currentClass, totalClass) => `<span class="${currentClass}"></span> / <span class="${totalClass}"></span>`,
+    },
+    breakpoints: {
+      0: { slidesPerView: 1 },
+      760: { slidesPerView: 1.35 },
+      1024: { slidesPerView: 2.15 },
+    },
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 60);
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // FAQ accordion
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+</body>
+</html>
