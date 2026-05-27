@@ -8,7 +8,9 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
 export async function POST(req: NextRequest) {
   let answers: Answers
   try {
-    answers = await req.json()
+    const body = await req.json()
+    // result/page.tsx sends { answers: {...} }, unwrap if wrapped
+    answers = body.answers ?? body
   } catch {
     return NextResponse.json({ error: 'リクエストの解析に失敗しました' }, { status: 400 })
   }
