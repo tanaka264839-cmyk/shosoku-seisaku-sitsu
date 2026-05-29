@@ -294,6 +294,12 @@
       transform: translateY(-0.04em);
     }
 
+    /* light背景ではarrowを濃い色に */
+    .section-light .heading-arrow,
+    #pricing .heading-arrow {
+      color: #6a8000;
+    }
+
     /* ── SERVICES ── */
     .services-grid {
       display: grid;
@@ -399,6 +405,16 @@
       opacity: 0.72;
       font-weight: 400;
       font-family: 'Noto Sans JP', sans-serif;
+    }
+
+    .service-price-note {
+      display: block;
+      margin-top: 0.3rem;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--accent2);
+      letter-spacing: 0;
     }
 
     /* ── PORTFOLIO ── */
@@ -598,6 +614,20 @@
       font-family: 'Syne', sans-serif;
       color: #88a500;
       font-size: 1.05rem;
+    }
+
+    .price-table .monitor-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 500;
+      color: #fff;
+      background: var(--accent2);
+      padding: 0.1rem 0.5rem;
+      border-radius: 999px;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+      letter-spacing: 0;
     }
 
     .price-note {
@@ -824,7 +854,9 @@
       <div class="service-icon">🚀</div>
       <h3>LP・サービスサイト制作</h3>
       <p>サービス紹介・集客・採用など目的に合わせたLPを制作。レスポンシブ対応・SEO基礎設定込み。</p>
-      <div class="service-price">¥30,000〜 <span>/ 1ページ</span></div>
+      <div class="service-price">¥15,000〜 <span>/ 初回限定</span>
+        <span class="service-price-note">通常 ¥30,000〜</span>
+      </div>
     </div>
     <div class="service-card reveal">
       <div class="service-icon">⚙️</div>
@@ -1001,8 +1033,8 @@
     <tbody>
       <tr>
         <td>LP（1ページ）</td>
-        <td><strong>¥30,000〜</strong></td>
-        <td>3〜5日</td>
+        <td><strong>¥15,000〜</strong><span class="monitor-badge">初回限定</span></td>
+        <td>1〜5日</td>
         <td>デザイン・コーディング・レスポンシブ対応</td>
       </tr>
       <tr>
